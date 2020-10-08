@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap
+	PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+	"http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<!-- 이 문서는 ibatis에서 처리할 SQL문을 작성하는 문서입니다.  -->
+<sqlMap namespace="join">
+
+	<select id="checkById" resultClass="String" parameterClass="String">
+		SELECT MEM_ID FROM MEMBER WHERE MEM_ID = #id#
+	</select>
+	
+	<insert id="insertMember" parameterClass="memVo">
+		INSERT INTO MEMBER(MEM_ID, MEM_PASS, MEM_NAME, MEM_BIR, MEM_ZIP, MEM_ADD1, MEM_ADD2, MEM_HP, MEM_MAIL)
+					VALUES (#mem_id#, #mem_pass#, #mem_name#, #mem_bir#, #mem_zip#, #mem_add1#, #mem_add2#, #mem_hp#, #mem_mail#)
+		<selectKey keyProperty="mem_id" resultClass="String">
+			SELECT MEM_ID FROM MEMBER WHERE MEM_ID = #mem_id#
+		</selectKey> 
+	</insert>
+	
+	<select id="selectByDong" parameterClass="String" resultClass="zipVo">
+		SELECT * FROM ZIPTB WHERE DONG LIKE #dong#||'%'
+	</select>
+	
+</sqlMap>
